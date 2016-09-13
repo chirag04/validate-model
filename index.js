@@ -33,7 +33,11 @@ var validate = (function() {
         var val = args[argIndex];
         return val !== undefined ? val : '';
       });
-    
+      
+      if (typeof validate[i].message === 'function') {
+        message = validate[i].message.apply(null, clonedArgs);
+      }
+      
       if (typeof validate[i].validator === 'function') {
         valid = validate[i].validator.apply(null, clonedArgs);
         if(!valid) {
